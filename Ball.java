@@ -15,6 +15,7 @@ public class Ball {
 	int y = 0;
 	int xa = 1;
 	int ya = 1;
+        int size = 20;
 	private BrickGame game;
 
 	public Ball(BrickGame game) {
@@ -24,11 +25,11 @@ public class Ball {
 	void move() {
 		if (x + xa < 0)
 			xa = 1;
-		if (x + xa > game.getWidth() - 30)
+		if (x + xa > game.getWidth() - size)
 			xa = -1;
 		if (y + ya < 0)
 			ya = 1;
-		if (y + ya > game.getHeight() - 30)
+		if (y + ya > game.getHeight() - size)
 			ya = -1;
 
 		x = x + xa;
@@ -36,6 +37,6 @@ public class Ball {
 	}
 
 	public void paint(Graphics2D g) {
-		g.fillOval(x, y, 30, 30);
+		g.fillOval(x, y, size, size);
 	}
 }

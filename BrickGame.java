@@ -2,7 +2,8 @@ import java.awt.Color;
 import java.awt.Graphics;
 import java.awt.Graphics2D;
 import java.awt.RenderingHints;
-import java.awt.geom.Ellipse2D;
+import java.awt.event.KeyEvent;
+import java.awt.event.KeyListener;
 import javax.swing.JFrame;
 import javax.swing.JPanel;
 
@@ -11,17 +12,33 @@ public class BrickGame extends JPanel {
 
         
         Ball ball = new Ball(this);
+        Racquet paddle = new Racquet(this);
 
-	private void move() {
-		ball.move();
+        
+        public BrickGame() {
+		addKeyListener(new KeyListener() {
+			@Override
+			public void keyTyped(KeyEvent e) {
+			}
+
+			@Override
+			public void keyReleased(KeyEvent e) {
+				paddle.keyReleased(e);
+			}
+
+			@Override
+			public void keyPressed(KeyEvent e) {
+				paddle.keyPressed(e);
+			}
+		});
+		setFocusable(true);
+                setBackground(Color.BLACK);
 	}
-        
-        
     
-        public BrickGame()
-        {
-            setBackground(Color.BLACK);
-        }
+        private void move() {
+		ball.move();
+                paddle.move();
+	}
         
         
 	@Override
@@ -32,7 +49,9 @@ public class BrickGame extends JPanel {
 				RenderingHints.VALUE_ANTIALIAS_ON);
 		g2d.setColor(Color.WHITE);
                 ball.paint(g2d);
-		g2d.fillRect(0, 0, 30, 100);
+                paddle.paint(g2d);
+		
+                
 
 		//g2d.draw(new Ellipse2D.Double(0, 100, 30, 30));
 	}
@@ -41,7 +60,7 @@ public class BrickGame extends JPanel {
 		JFrame frame = new JFrame("Brick Breaker");
                 BrickGame game = new BrickGame();
 		frame.add(game);
-		frame.setSize(300, 300);
+		frame.setSize(500, 400);
 		frame.setVisible(true);
 		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
                 
